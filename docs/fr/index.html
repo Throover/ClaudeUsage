@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClaudeUsage : suivre sa consommation Claude Code sur Mac</title>
+<meta name="description" content="Vos limites de session et de semaine Claude Code dans la barre de menus du Mac. Sans demande de mot de passe, sans consommer de token. Gratuit et open source.">
+<link rel="canonical" href="https://throover.github.io/ClaudeUsage/fr/">
+<link rel="alternate" hreflang="en" href="https://throover.github.io/ClaudeUsage/">
+<link rel="alternate" hreflang="fr" href="https://throover.github.io/ClaudeUsage/fr/">
+<link rel="alternate" hreflang="x-default" href="https://throover.github.io/ClaudeUsage/">
+<link rel="icon" href="../icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ClaudeUsage : suivre sa consommation Claude Code sur Mac">
+<meta property="og:description" content="Vos limites de session et de semaine Claude Code dans la barre de menus du Mac. Sans demande de mot de passe, sans consommer de token. Gratuit et open source.">
+<meta property="og:url" content="https://throover.github.io/ClaudeUsage/fr/">
+<meta property="og:image" content="https://throover.github.io/ClaudeUsage/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "ClaudeUsage", "description": "Vos limites de session et de semaine Claude Code dans la barre de menus du Mac. Sans demande de mot de passe, sans consommer de token. Gratuit et open source.", "url": "https://throover.github.io/ClaudeUsage/fr/", "applicationCategory": "DeveloperApplication", "operatingSystem": "macOS 13 or later", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "downloadUrl": "https://github.com/Throover/ClaudeUsage/releases/latest/download/ClaudeUsage.zip", "license": "https://opensource.org/licenses/MIT", "author": {"@type": "Person", "name": "Throover", "url": "https://github.com/Throover"}}</script>
+<style>
+:root{--bg:#0d0f17;--tile:#292e3d;--text:#f2f4f8;--soft:#a9b0c0;--green:#59f28c;--line:#2a2f3e}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,var(--tile),var(--bg) 620px);background-color:var(--bg);color:var(--text);font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:auto;padding:56px 24px 40px}
+nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:56px}
+nav b{font-family:ui-monospace,Menlo,monospace}nav b i{color:var(--green);font-style:normal}
+a{color:inherit}
+.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:center}
+h1{font-size:clamp(34px,5vw,50px);line-height:1.12;margin:0 0 18px;letter-spacing:-.02em}
+.lead{color:var(--soft);font-size:20px;margin:0 0 28px}
+.hero img{width:100%;max-width:380px;border-radius:12px;display:block;margin:auto;box-shadow:0 18px 50px #0009}
+.cmd{display:flex;align-items:center;gap:10px;background:#0009;border:1px solid var(--line);border-radius:10px;padding:10px 10px 10px 14px}
+.cmd code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;color:var(--green);font:13px ui-monospace,Menlo,monospace}
+button{background:#2f6fed;color:#fff;border:0;border-radius:7px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer}
+.links{margin:16px 0 0;font-size:15px}.links a{margin-right:18px}
+.feats{display:grid;grid-template-columns:repeat(2,1fr);gap:32px 48px;margin:72px 0 48px}
+h2{font-size:18px;margin:0 0 6px}.feats p{margin:0;color:var(--soft)}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+footer{border-top:1px solid var(--line);padding-top:20px;color:var(--soft);font-size:14px}footer p{margin:4px 0}
+@media(max-width:760px){.hero,.feats{grid-template-columns:minmax(0,1fr)}main{padding:28px 16px}nav{margin-bottom:32px}}
+</style>
+</head>
+<body>
+<main>
+<nav><b><i>&gt;_</i> ClaudeUsage</b><a href="../" hreflang="en">English</a></nav>
+<section class="hero">
+<div>
+<h1>Votre consommation Claude Code,<br>dans la barre de menus du Mac.</h1>
+<p class="lead">Vos limites de session et de semaine en un coup d'œil, sans demande de mot de passe et sans consommer de token.</p>
+<div class="cmd"><code id="c">curl -fsSL https://raw.githubusercontent.com/Throover/ClaudeUsage/main/install.sh | sh</code><button id="b" type="button">Copier</button></div>
+<p class="links"><a href="https://github.com/Throover/ClaudeUsage/releases/latest/download/ClaudeUsage.zip">Télécharger le zip</a><a href="https://github.com/Throover/ClaudeUsage/blob/main/README.fr.md">Voir sur GitHub</a></p>
+</div>
+<img src="../menu-fr.png" width="560" height="510" alt="Menu de ClaudeUsage affichant la consommation de session et la limite hebdomadaire de Claude Code">
+</section>
+<section class="feats"><div><h2>Aucune demande de mot de passe</h2><p>L'app ne lit jamais votre trousseau ni votre jeton de connexion. Elle interroge Claude Code lui-même avec <code>/usage</code>.</p></div><div><h2>Aucun token consommé</h2><p>Dans nos tests, consulter votre consommation a utilisé 0 token, sans appel au modèle.</p></div><div><h2>Limites de session et de semaine</h2><p>La fenêtre de 5 heures, la limite hebdomadaire et leurs réinitialisations, actualisées toutes les 5 minutes.</p></div><div><h2>Une ligne dans le terminal</h2><p>En option, votre consommation sous la zone de saisie de Claude Code, avec vos rappels de raccourcis toujours visibles.</p></div></section>
+<footer><p>Bêta. macOS 13 ou plus récent. Nécessite Claude Code, connecté avec un abonnement Claude.</p><p>Projet indépendant, sans lien avec Anthropic ni approuvé par Anthropic. Licence MIT. <a href="https://ko-fi.com/throover">Soutenir le projet ♥</a></p></footer>
+</main>
+<script>
+document.getElementById('b').addEventListener('click',async function(){try{await navigator.clipboard.writeText(document.getElementById('c').textContent);this.textContent='Copié'}catch(e){}});
+</script>
+</body>
+</html>

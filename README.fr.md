@@ -1,22 +1,26 @@
-<img src="docs/icon.png" width="128" alt="Icône de ClaudeUsage">
+<img src="docs/icon.png" width="128" alt="Icône de l'app ClaudeUsage">
 
-# ClaudeUsage
+# ClaudeUsage : suivre sa consommation Claude Code dans la barre de menus du Mac
 
-**Votre consommation Claude Code dans la barre de menus du Mac, sans demande de mot de passe.**
+**Vos limites de session et de semaine Claude Code en un coup d'œil, sans demande de mot de passe et sans consommer de token.**
 
-Une petite app gratuite pour macOS. Elle affiche où vous en êtes de vos limites de session et de semaine, et quand elles se réinitialisent.
+Une petite app gratuite et open source pour macOS, qui affiche où vous en êtes de vos limites d'usage Claude et quand elles se réinitialisent. Fonctionne avec un abonnement Claude.
 
-[English](README.md)
+[English](README.md) · [Site web](https://throover.github.io/ClaudeUsage/fr/)
 
 > **Bêta.** Testée pour l'instant sur un seul abonnement Claude. Si quelque chose vous semble anormal, merci d'[ouvrir un ticket](../../issues).
 
-<img src="docs/panel.png" width="300" alt="Panneau affichant la consommation de session et de semaine">
+<p><img src="docs/menu-fr.png" width="340" alt="Menu de ClaudeUsage affichant la consommation de session et la limite hebdomadaire de Claude Code, avec les réinitialisations"></p>
+
+## Pourquoi ClaudeUsage
 
 - **Aucune demande de mot de passe :** l'app ne lit jamais votre trousseau ni votre jeton de connexion. Elle interroge Claude Code lui-même avec `/usage`.
-- **Aucun coût :** dans nos tests, lire votre consommation a utilisé 0 token.
-- **Toujours à jour :** elle s'actualise toutes les 5 minutes, à l'ouverture du panneau et au clic sur le bouton d'actualisation.
-- **Dans votre langue :** suit la langue de votre Mac (anglais, français, espagnol, italien, allemand, portugais, chinois, japonais).
-- **Ligne facultative dans le terminal :** `Session 16% · Semaine 12%` sous la zone de saisie de Claude Code, avec vos rappels de raccourcis toujours visibles. À activer dans les réglages de l'app.
+- **Aucun token consommé :** dans nos tests, consulter votre consommation a utilisé 0 token, sans appel au modèle.
+- **Limites de session et de semaine :** la fenêtre de 5 heures, la limite hebdomadaire et la date de réinitialisation de chacune.
+- **Toujours à jour :** elle s'actualise toutes les 5 minutes, à l'ouverture du menu et à la demande.
+- **Ligne facultative dans le terminal :** `Session 16% · Semaine 12%` sous la zone de saisie de Claude Code, avec vos rappels de raccourcis toujours visibles.
+- **Native et légère :** un vrai menu macOS en Swift, avec des jauges discrètes <img src="docs/menubar.png" height="18" alt="Jauges rondes de consommation S et W"> ou des pourcentages exacts dans la barre de menus, au choix.
+- **Dans votre langue :** français, anglais, espagnol, italien, allemand, portugais, chinois et japonais, selon la langue de votre Mac.
 
 ## Installation
 
@@ -36,18 +40,40 @@ Ou téléchargez `ClaudeUsage.zip` depuis la [dernière version](../../releases/
 
 ## Réglages
 
-Cliquez sur l'engrenage du panneau :
+Choisissez **Réglages…** dans le menu :
 
 | Réglage | Effet |
 |---|---|
-| Afficher l'usage de la session / de la semaine | Choisit les anneaux affichés dans la barre de menus |
+| Afficher l'usage de la session / de la semaine | Choisit ce qu'affiche la barre de menus |
+| Affichage dans la barre de menus | Jauges rondes ou pourcentages |
 | Afficher l'usage dans Claude Code | Ajoute la ligne sous la zone de saisie, pour les nouvelles sessions. Désactivé par défaut |
 | Lancer au démarrage | Lance l'app au démarrage du Mac. Désactivé par défaut |
 
-## Bon à savoir
+## Questions fréquentes
 
-- L'app lit le texte affiché par `/usage`. Si une mise à jour de Claude Code change ce texte, le panneau affiche **Échec de l'actualisation** jusqu'à la mise à jour de l'app.
-- L'app contacte `status.claude.com` pour l'état du service et l'API GitHub pour détecter les nouvelles versions de Claude Code. Vos données de consommation restent sur votre Mac, dans `~/.claude/claude-usage.json`.
+### Comment voir sa consommation Claude Code sur Mac ?
+
+Installez ClaudeUsage : votre usage de session et de semaine reste visible dans la barre de menus. Cliquez sur les jauges pour les pourcentages exacts et les heures de réinitialisation.
+
+### Pourquoi l'app ne demande-t-elle pas mon mot de passe ?
+
+Les apps qui lisent votre jeton de connexion Claude dans le trousseau macOS peuvent déclencher des demandes de mot de passe. ClaudeUsage ne touche pas au trousseau : elle lance la commande `/usage` de Claude Code, qui gère seule la connexion.
+
+### Consulter ma consommation entame-t-il mes limites ?
+
+Dans nos tests, `/usage` a utilisé 0 token sans aucun coût : actualiser n'entame donc pas vos limites.
+
+### L'app fonctionne-t-elle avec Claude Pro et Claude Max ?
+
+Elle est faite pour les abonnements Claude. Elle a été testée pour l'instant sur Claude Pro ; les retours sur les autres abonnements sont les bienvenus.
+
+### Que se passe-t-il si Claude Code change ?
+
+L'app lit le texte affiché par `/usage`. Si une mise à jour change ce texte, le menu affiche **Échec de l'actualisation** jusqu'à la mise à jour de l'app.
+
+### Quelles données quittent mon Mac ?
+
+Vos données de consommation restent sur votre Mac, dans `~/.claude/claude-usage.json`. L'app contacte `status.claude.com` pour l'état du service et l'API GitHub pour détecter les nouvelles versions de Claude Code.
 
 ## Désinstallation
 
@@ -59,11 +85,15 @@ pkill -x ClaudeUsage; rm -rf /Applications/ClaudeUsage.app ~/.claude/claude-usag
 
 ## Compiler depuis les sources
 
-Nécessite les Xcode Command Line Tools.
+Nécessite les Xcode Command Line Tools (`xcode-select --install`).
 
 ```sh
 ./build.sh --install
 ```
+
+## Voir aussi
+
+[TerminalPinch](https://github.com/Throover/TerminalPinch) : zoomer en pinçant dans le terminal du Mac.
 
 ## Soutenir
 

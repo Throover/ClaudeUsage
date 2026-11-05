@@ -1,39 +1,36 @@
-// Draws the 1024 px app icon: two usage rings on a dark tile.
+// Draws the 1024 px app icon, in TerminalPinch's family: same tile and same green prompt,
+// with a usage gauge where TerminalPinch has its pinch arrows.
 // Usage: make-icon <output.png>
 import AppKit
 
-let size: CGFloat = 1024
-let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(size), pixelsHigh: Int(size),
-                           bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+let px = 1024
+let s = CGFloat(px)
+let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: px, pixelsHigh: px, bitsPerSample: 8,
+                           samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
                            colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
 NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
 
-// macOS icon grid: an 824 px tile centered in the 1024 px canvas.
-let tile = NSRect(x: 100, y: 100, width: 824, height: 824)
-let tilePath = NSBezierPath(roundedRect: tile, xRadius: 186, yRadius: 186)
-NSGradient(starting: NSColor(calibratedRed: 0.20, green: 0.21, blue: 0.25, alpha: 1),
-           ending: NSColor(calibratedRed: 0.09, green: 0.10, blue: 0.13, alpha: 1))!
-    .draw(in: tilePath, angle: -90)
+let inset = s * 0.1
+let rect = NSRect(x: inset, y: inset, width: s - 2 * inset, height: s - 2 * inset)
+let tile = NSBezierPath(roundedRect: rect, xRadius: rect.width * 0.225, yRadius: rect.width * 0.225)
+NSGradient(starting: NSColor(calibratedRed: 0.16, green: 0.18, blue: 0.24, alpha: 1),
+           ending: NSColor(calibratedRed: 0.05, green: 0.06, blue: 0.09, alpha: 1))!.draw(in: tile, angle: -90)
 
-func ring(radius: CGFloat, fraction: CGFloat, color: NSColor) {
-    let center = NSPoint(x: size / 2, y: size / 2)
-    let track = NSBezierPath()
-    track.appendArc(withCenter: center, radius: radius, startAngle: 0, endAngle: 360)
-    track.lineWidth = 72
-    NSColor.white.withAlphaComponent(0.12).setStroke()
-    track.stroke()
+let prompt = NSAttributedString(string: ">_", attributes: [
+    .font: NSFont.monospacedSystemFont(ofSize: rect.width * 0.26, weight: .bold),
+    .foregroundColor: NSColor(calibratedRed: 0.35, green: 0.95, blue: 0.55, alpha: 1)])
+prompt.draw(at: NSPoint(x: rect.minX + rect.width * 0.12, y: rect.maxY - rect.width * 0.42))
 
-    let arc = NSBezierPath()
-    arc.appendArc(withCenter: center, radius: radius, startAngle: 90,
-                  endAngle: 90 - 360 * fraction, clockwise: true)
-    arc.lineWidth = 72
-    arc.lineCapStyle = .round
-    color.setStroke()
-    arc.stroke()
+let config = NSImage.SymbolConfiguration(pointSize: rect.width * 0.34, weight: .semibold)
+if let symbol = NSImage(systemSymbolName: "gauge.with.dots.needle.67percent", accessibilityDescription: nil)?
+    .withSymbolConfiguration(config) {
+    let tinted = NSImage(size: symbol.size, flipped: false) { r in
+        symbol.draw(in: r); NSColor.white.set(); r.fill(using: .sourceAtop); return true
+    }
+    let size = tinted.size
+    tinted.draw(in: NSRect(x: rect.maxX - size.width - rect.width * 0.12, y: rect.minY + rect.width * 0.12,
+                           width: size.width, height: size.height))
 }
-
-ring(radius: 280, fraction: 0.68, color: NSColor(calibratedRed: 1.00, green: 0.78, blue: 0.16, alpha: 1))
-ring(radius: 172, fraction: 0.32, color: NSColor(calibratedRed: 0.25, green: 0.84, blue: 0.42, alpha: 1))
 
 NSGraphicsContext.current = nil
 try! rep.representation(using: .png, properties: [:])!
