@@ -1,0 +1,7 @@
+{
+  "name": "claude-usage-local",
+  "owner": { "name": "Throover" },
+  "plugins": [
+    { "name": "usage", "source": "./mod/usage", "description": "Shows session and weekly usage under the prompt." }
+  ]
+}
